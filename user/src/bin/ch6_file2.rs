@@ -17,13 +17,13 @@ pub fn main() -> i32 {
     let stat = Stat::new();
     fstat(fd, &stat);
     assert_eq!(stat.nlink, 2);
+
     link(fname, lname1);
     link(fname, lname2);
     fstat(fd, &stat);
     assert_eq!(stat.nlink, 4);
     write(fd, test_str.as_bytes());
     close(fd);
-
     unlink(fname);
     let fd = open(lname0, OpenFlags::RDONLY) as usize;
     let stat2 = Stat::new();
